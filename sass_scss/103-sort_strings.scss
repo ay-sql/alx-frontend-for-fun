@@ -1,0 +1,29 @@
+/* Sort strings */
+@import '103-sort_list';
+
+@function sort($list) {
+    $sorted: ();
+    @while length($list) > 0 {
+        $min: nth($list, 1);
+        @each $item in $list {
+            @if $item < $min {
+                $min: $item;
+            }
+        }
+        $sorted: append($sorted, $min);
+        $list: list-remove($list, index($list, $min));
+    }
+    @return $sorted;
+}
+
+@function list-remove($list, $index) {
+    $result: ();
+    @for $i from 1 through length($list) {
+        @if $i != $index {
+            $result: append($result, nth($list, $i));
+        }
+    }
+    @return $result;
+}
+
+@debug sort($list_to_sort);
